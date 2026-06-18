@@ -20,7 +20,7 @@ graph TD
     end
     
     subgraph LLM_Service["AI Provider (Google AI Studio)"]
-        ReActAgent <-->|4. Plans & Decides (via GEMINI_API_KEY)| GeminiModel["Gemini 2.5 Flash Model"]
+        ReActAgent <-->|4. Plans & Decides via GEMINI_API_KEY| GeminiModel["Gemini 2.5 Flash Model"]
     end
     
     subgraph Local_Tools["Python Tools (agent.py)"]
