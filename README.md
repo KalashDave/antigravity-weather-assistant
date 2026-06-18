@@ -2,7 +2,12 @@
 
 This repository contains a lightweight **ReAct (Reasoning and Action) Agent** built using Google's **Agent Development Kit (ADK)** and managed by the **Agents CLI (`agents-cli`)**. 
 
-This project was developed as part of **Day 3: Authoring Google Antigravity Skills** of the *"5-Day AI Agents: Intensive Vibe Coding Course With Google"*.
+This project was developed during **Day 3: Authoring Google Antigravity Skills** of the [5-Day AI Agents: Intensive Vibe Coding Course with Google](https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google).
+
+### About the Course
+Hosted on **Kaggle** and created in collaboration with Google researchers and engineers, this intensive program focuses on **"vibe coding"**—a development paradigm shift where developers use natural language as the primary interface to design, build, and orchestrate complex systems. 
+* **Key Topics**: Covers agentic architectures, memory/context persistence, tool integrations, and multi-agent loops.
+* **Tech Stack**: Leverages the Gemini API (Google AI Studio), Vertex AI platforms, Agent Development Kit (ADK), and Model Context Protocol (MCP) servers.
 
 ---
 
@@ -28,13 +33,13 @@ graph TD
         ReActAgent <-->|5b. Invokes time tool| TimeTool["get_current_time(query)"]
     end
     
-    style UserClient fill:#d4e1f5,stroke:#4a90e2,stroke-width:2px;
-    style FastAPIServer fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    style ADKRunner fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    style ReActAgent fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    style GeminiModel fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    style WeatherTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
-    style TimeTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    style UserClient fill:#d4e1f5,stroke:#4a90e2,stroke-width:2px,color:#000;
+    style FastAPIServer fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
+    style ADKRunner fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    style ReActAgent fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    style GeminiModel fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    style WeatherTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+    style TimeTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
 ```
 
 ### Flow of Execution
