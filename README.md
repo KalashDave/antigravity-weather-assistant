@@ -2,7 +2,7 @@
 
 This repository contains a lightweight **ReAct (Reasoning and Action) Agent** built using Google's **Agent Development Kit (ADK)** and managed by the **Agents CLI (`agents-cli`)**. 
 
-This project was developed during **Day 3: Authoring Google Antigravity Skills** of the [5-Day AI Agents: Intensive Vibe Coding Course with Google](https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google).
+This repository contains a setup completed by following the hands-on instructions in the official guidebook for **Day 3: Authoring Google Antigravity Skills** of the [5-Day AI Agents: Intensive Vibe Coding Course with Google](https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google).
 
 ### About the Course
 Hosted on **Kaggle** and created in collaboration with Google researchers and engineers, this intensive program focuses on **"vibe coding"**—a development paradigm shift where developers use natural language as the primary interface to design, build, and orchestrate complex systems. 
