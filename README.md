@@ -6,14 +6,44 @@ This project was developed as part of **Day 3: Authoring Google Antigravity Skil
 
 ---
 
-## What It Does
+## Architecture & Component Interaction
 
-The Weather Assistant is designed to answer user queries about the weather and current time by invoking local python tools. It leverages the **Gemini 2.5 Flash** model for planning, tool invocation, and generating responses.
+The diagram below explains the components of the project and how they interact when a user sends a query (e.g., *"What's the weather like in SF?"*):
 
-### Key Capabilities & Tools
-* **Weather Tool (`get_weather`)**: Simulates a weather database. It returns a foggy weather report for San Francisco and a sunny report for any other location.
-* **Time Tool (`get_current_time`)**: Simulates a timezone query. It dynamically calculates and returns the current time in the local timezone for San Francisco.
-* **Hybrid Credentials (Local vs. Cloud)**: The codebase is configured to run fully local using Google AI Studio with a `GEMINI_API_KEY`, or deploy natively to Google Cloud (Vertex AI Reasoning Engines) using Application Default Credentials (ADC).
+```mermaid
+graph TD
+    UserClient["Client (Browser Playground / CLI)"] <-->|1. Sends Prompt / Streams Response| FastAPIServer["FastAPI Server (fast_api_app.py)"]
+    
+    subgraph ADK_Engine["ADK Agent Engine (Local Process)"]
+        FastAPIServer <-->|2. Executes Request| ADKRunner["ADK App / Runner"]
+        ADKRunner <-->|3. Manages Agent State| ReActAgent["ReAct Agent (agent.py)"]
+    end
+    
+    subgraph LLM_Service["AI Provider (Google AI Studio)"]
+        ReActAgent <-->|4. Plans & Decides (via GEMINI_API_KEY)| GeminiModel["Gemini 2.5 Flash Model"]
+    end
+    
+    subgraph Local_Tools["Python Tools (agent.py)"]
+        ReActAgent <-->|5a. Invokes weather tool| WeatherTool["get_weather(query)"]
+        ReActAgent <-->|5b. Invokes time tool| TimeTool["get_current_time(query)"]
+    end
+    
+    style UserClient fill:#d4e1f5,stroke:#4a90e2,stroke-width:2px;
+    style FastAPIServer fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    style ADKRunner fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    style ReActAgent fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    style GeminiModel fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    style WeatherTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    style TimeTool fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+```
+
+### Flow of Execution
+1. **User Input**: A user sends a prompt via the browser playground or CLI.
+2. **REST Endpoint**: The FastAPI server receives the prompt and passes the execution to the ADK `Runner` session.
+3. **Reasoning Loop**: The `ReActAgent` calls the **Gemini 2.5 Flash** model with the user's prompt, instructions, and schemas of the available tools.
+4. **Tool Selection**: Gemini determines if it needs more information. If so, it returns a `tool_call` requesting to run a local function (e.g., `get_weather(query="SF")`).
+5. **Local Execution**: The agent runs the local python function (`get_weather` or `get_current_time`) and returns the resulting string back to Gemini.
+6. **Final Response**: Once Gemini has the required info, it synthesizes a natural language answer and streams it back to the client interface.
 
 ---
 
